@@ -1,9 +1,7 @@
 package com.quickShop.cart.Entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Entity
 @Data
@@ -21,8 +19,6 @@ public class CartItem {
     private String imageUrl;
     private int quantity;
 
-    @ManyToOne
-    @JoinColumn(name = "cart_id")
-    private Cart cart;
+    @Transient
+    private Long cartId;
 }
-
