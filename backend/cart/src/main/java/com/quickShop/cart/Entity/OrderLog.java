@@ -15,14 +15,12 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class OrderLog {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String stripePaymentId;
-
     private Double amount;
-
+    private String transactionId;
+    private String status;
     private LocalDateTime createdAt;
 }
