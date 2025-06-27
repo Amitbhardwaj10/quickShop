@@ -29,4 +29,38 @@ public class CartServiceImpl implements CartService {
     public Cart getCartById(Long id) {
         return cartRepository.findById(id).orElseThrow(() -> new RuntimeException("Cart not found"));
     }
+
+    @Override
+    public Cart removeItem(Long cartId, Long itemId) {
+        Cart cart = cartRepository.findById(cartId).orElseThrow(() -> new RuntimeException("Cart not found"));
+
+        cart.getItems().removeIf(item -> item.getId().equals(itemId));
+
+        double total = cart.getItems().stream().mapToDouble(i -> i.getPrice() * i.getQuantity()).sum();
+
+        cart.setTotal(total);
+
+        return cartRepository.save(cart);
+    }
+
+    @Override
+    public Cart updateItemQuantity(Long cartId, Long itemId, int quantity) {
+        Cart cart = cartRepository.findById(cartId).orElseThrow(() -> new RuntimeException("Cart not found"));
+
+        for(CartItem item : cart.getItems()) {
+            if(item.getId().equals(itemId)) {
+                item.setQuantity(quantity);
+                break;
+            }
+        }
+
+        double total = cart.getItems().stream()
+                .mapToDouble(i -> i.getPrice() * i.getQuantity())
+                .sum();
+        cart.setTotal(total);
+
+        return cartRepository.save(cart);
+    }
+
+
 }
