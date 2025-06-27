@@ -1,9 +1,9 @@
 package com.quickShop.cart.service;
 
-import org.springframework.stereotype.Service;
+import com.quickShop.cart.Entity.Cart;
+import com.quickShop.cart.Entity.CartItem;
 
-@Service
 public interface CartService {
-    public getAllProducts();
-    public
+    public Cart addToCart(CartItem item);
+    public Cart getCartById(Long id);
 }
